@@ -10,6 +10,8 @@ See the [BUILDING](BUILDING.md) document.
 
 See the [CONTRIBUTING](CONTRIBUTING.md) document.
 
+See the [AGENTS](AGENTS.md) document for project rules, environment, and AI agent conventions.
+
 # Licensing
 
 <!--

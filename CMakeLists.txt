@@ -9,7 +9,14 @@ project(
     HOMEPAGE_URL "https://example.com/"
     LANGUAGES CXX
 )
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 include(cmake/project-is-top-level.cmake)
 include(cmake/variables.cmake)
 
@@ -38,6 +45,7 @@ set_property(TARGET imageviewer_exe PROPERTY OUTPUT_NAME imageviewer)
 target_compile_features(imageviewer_exe PRIVATE cxx_std_17)
 
 target_link_libraries(imageviewer_exe PRIVATE imageviewer_lib)
+target_link_libraries(imageviewer_exe PRIVATE Qt6::Widgets)
 
 # ---- Install rules ----
 

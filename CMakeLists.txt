@@ -25,7 +25,6 @@ include(cmake/variables.cmake)
 add_library(
     imageviewer_lib STATIC
     source/lib.cpp
-    source/ui/ImageViewerWindow.cpp
 )
 
 target_link_libraries(imageviewer_lib PRIVATE Qt6::Widgets Qt6::Gui)

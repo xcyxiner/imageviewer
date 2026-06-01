@@ -12,11 +12,9 @@ project(
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTORCC ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets Gui)
+qt_standard_project_setup()
 include(cmake/project-is-top-level.cmake)
 include(cmake/variables.cmake)
 
@@ -38,10 +36,14 @@ target_include_directories(
 target_compile_features(imageviewer_lib PUBLIC cxx_std_17)
 
 # ---- Declare executable ----
-
-add_executable(imageviewer_exe source/main.cpp)
+file(GLOB_RECURSE SRC
+    "source/*.cpp"
+    "source/*.h"
+)
+add_executable(imageviewer_exe ${SRC})
 add_executable(imageviewer::exe ALIAS imageviewer_exe)
 
+target_include_directories(imageviewer_exe PRIVATE source)
 set_property(TARGET imageviewer_exe PROPERTY OUTPUT_NAME imageviewer)
 
 target_compile_features(imageviewer_exe PRIVATE cxx_std_17)

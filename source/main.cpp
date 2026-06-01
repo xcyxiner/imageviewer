@@ -1,16 +1,13 @@
 #include <QApplication>
-#include <QGraphicsView>
-#include <QMainWindow>
-#include <iostream>
-#include <string>
 
-#include "lib.hpp"
-#include "qapplication.h"
+#include "ui/ImageViewerWindow.hpp"
 
 auto main(int argc, char** argv) -> int
 {
   QApplication app(argc, argv);
 
-  int ret = app.exec();
-  return ret;
+  ImageViewerWindow w;
+  w.show();
+
+  return app.exec();
 }

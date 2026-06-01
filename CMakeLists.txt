@@ -16,16 +16,19 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Gui)
 include(cmake/project-is-top-level.cmake)
 include(cmake/variables.cmake)
 
 # ---- Declare library ----
 
 add_library(
-    imageviewer_lib OBJECT
+    imageviewer_lib STATIC
     source/lib.cpp
+    source/ui/ImageViewerWindow.cpp
 )
+
+target_link_libraries(imageviewer_lib PRIVATE Qt6::Widgets Qt6::Gui)
 
 target_include_directories(
     imageviewer_lib ${warning_guard}
@@ -45,7 +48,7 @@ set_property(TARGET imageviewer_exe PROPERTY OUTPUT_NAME imageviewer)
 target_compile_features(imageviewer_exe PRIVATE cxx_std_17)
 
 target_link_libraries(imageviewer_exe PRIVATE imageviewer_lib)
-target_link_libraries(imageviewer_exe PRIVATE Qt6::Widgets)
+target_link_libraries(imageviewer_exe PRIVATE Qt6::Widgets Qt6::Gui)
 
 # ---- Install rules ----
 

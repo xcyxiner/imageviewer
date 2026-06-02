@@ -17,17 +17,27 @@ imageview::imageview(QWidget* parent)
 
   setScene(scene);
 
-  auto* imagepath = new QString("/home/ubuntu/imageviewer/cat.jpg");
-  QImageReader reader(*imagepath);
-  QImage img = reader.read();
-
-  item = new QGraphicsPixmapItem(QPixmap::fromImage(img));
+  item = new QGraphicsPixmapItem();
   scene->addItem(item);
-  scene->setSceneRect(item->boundingRect());
 }
 
 void imageview::resizeEvent(QResizeEvent* event)
 {
   QGraphicsView::resizeEvent(event);
+  fitInView(scene->itemsBoundingRect(), Qt::KeepAspectRatio);
+}
+
+void imageview::loadImage(const QString& path)
+{
+  QImageReader reader(path);
+  QImage img = reader.read();
+
+  if (img.isNull()) {
+    return;
+  }
+
+  this->item->setPixmap(QPixmap::fromImage(img));
+
+  scene->setSceneRect(item->boundingRect());
   fitInView(scene->itemsBoundingRect(), Qt::KeepAspectRatio);
 }

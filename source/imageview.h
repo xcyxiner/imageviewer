@@ -5,6 +5,7 @@
 #include <QGraphicsView>
 
 #include "qgraphicsscene.h"
+#include "qobject.h"
 
 class imageview : public QGraphicsView
 {
@@ -14,6 +15,7 @@ public:
 
 public:
   void resizeEvent(QResizeEvent* event) override;
+  void loadImage(const QString& path);
 
 private:
   QGraphicsScene* scene;

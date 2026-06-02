@@ -1,7 +1,11 @@
 
 #include "mainwindow.h"
 
-mainwindow::mainwindow(QWidget *parent)
+#include "imageview.h"
+
+mainwindow::mainwindow(QWidget* parent)
     : QMainWindow(parent)
 {
+  auto* view = new imageview(this);
+  setCentralWidget(view);
 }

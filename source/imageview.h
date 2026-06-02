@@ -12,6 +12,9 @@ class imageview : public QGraphicsView
 public:
   explicit imageview(QWidget* parent = nullptr);
 
+public:
+  void resizeEvent(QResizeEvent* event) override;
+
 private:
   QGraphicsScene* scene;
   QGraphicsPixmapItem* item;

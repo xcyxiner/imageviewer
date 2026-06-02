@@ -4,8 +4,10 @@
 
 #include "imageview.h"
 
+#include "qgraphicsview.h"
 #include "qhashfunctions.h"
 #include "qimage.h"
+#include "qnamespace.h"
 #include "qpixmap.h"
 
 imageview::imageview(QWidget* parent)
@@ -22,4 +24,10 @@ imageview::imageview(QWidget* parent)
   item = new QGraphicsPixmapItem(QPixmap::fromImage(img));
   scene->addItem(item);
   scene->setSceneRect(item->boundingRect());
+}
+
+void imageview::resizeEvent(QResizeEvent* event)
+{
+  QGraphicsView::resizeEvent(event);
+  fitInView(scene->itemsBoundingRect(), Qt::KeepAspectRatio);
 }

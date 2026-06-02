@@ -4,8 +4,10 @@
 
 #include "imageview.h"
 
+#include "qgraphicsview.h"
 #include "qhashfunctions.h"
 #include "qimage.h"
+#include "qnamespace.h"
 #include "qpixmap.h"
 
 imageview::imageview(QWidget* parent)
@@ -15,11 +17,27 @@ imageview::imageview(QWidget* parent)
 
   setScene(scene);
 
-  auto* imagepath = new QString("/home/ubuntu/imageviewer/cat.jpg");
-  QImageReader reader(*imagepath);
+  item = new QGraphicsPixmapItem();
+  scene->addItem(item);
+}
+
+void imageview::resizeEvent(QResizeEvent* event)
+{
+  QGraphicsView::resizeEvent(event);
+  fitInView(scene->itemsBoundingRect(), Qt::KeepAspectRatio);
+}
+
+void imageview::loadImage(const QString& path)
+{
+  QImageReader reader(path);
   QImage img = reader.read();
 
-  item = new QGraphicsPixmapItem(QPixmap::fromImage(img));
-  scene->addItem(item);
+  if (img.isNull()) {
+    return;
+  }
+
+  this->item->setPixmap(QPixmap::fromImage(img));
+
   scene->setSceneRect(item->boundingRect());
+  fitInView(scene->itemsBoundingRect(), Qt::KeepAspectRatio);
 }

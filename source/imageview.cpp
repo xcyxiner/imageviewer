@@ -9,6 +9,7 @@
 #include "qimage.h"
 #include "qnamespace.h"
 #include "qpixmap.h"
+#include "qtmetamacros.h"
 
 imageview::imageview(QWidget* parent)
     : QGraphicsView(parent)
@@ -40,4 +41,9 @@ void imageview::loadImage(const QString& path)
 
   scene->setSceneRect(item->boundingRect());
   fitInView(scene->itemsBoundingRect(), Qt::KeepAspectRatio);
+}
+
+void imageview::keyPressEvent(QKeyEvent* event)
+{
+  emit this->keyHandle(event);
 }

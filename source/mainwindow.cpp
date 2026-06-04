@@ -4,6 +4,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QStatusBar>
+#include <QToolBar>
 
 #include "mainwindow.h"
 
@@ -58,6 +59,15 @@ void mainwindow::createMenu()
             }
             showCurrentImage();
           });
+  auto* toolbar = this->addToolBar("toolbar");
+  auto* fitAction = new QAction("fit view", this);
+  auto* actualAction = new QAction("actual view", this);
+
+  toolbar->addAction(fitAction);
+  toolbar->addAction(actualAction);
+
+  connect(fitAction, &QAction::triggered, view, &imageview::fitview);
+  connect(actualAction, &QAction::triggered, view, &imageview::resetview);
 }
 
 void mainwindow::openFolderAndShow(const QString& path)
